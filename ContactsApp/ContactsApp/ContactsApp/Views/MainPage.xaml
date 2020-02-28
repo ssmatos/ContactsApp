@@ -7,23 +7,50 @@
              x:Class="ContactsApp.MainPage">
 
     <ContentPage.Content>
-        <CollectionView x:Name="ListView"
-                        ItemsSource="">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout BackgroundColor="White"
-                                     Orientation="Vertical">
-                            <StackLayout Orientation="Horizontal">
-                                <Image Source=""/>
-                                <Label Text=""/>
-                                <Label Text=""/>
-                            </StackLayout>
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </ContentPage.Content>
+        <StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+            </Grid>
+            <ListView ItemsSource="{Binding Contacts}"
+                     SelectionMode="Single"
+                     IsPullToRefreshEnabled="True"
+                     RefreshControlColor="Black"
+                     SelectedItem="{Binding SelectedContact,Mode=TwoWay}"
+                     Grid.Row="1">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Text="Edit"
+                                          Command="{Binding Path = BindingContext.EditContactCommand,Source={x:Reference Contact}}"
+                                          CommandParameter="{Binding .}">
 
+                                </MenuItem>
+                                <MenuItem Text="Delete"
+                                          Command="{Binding Path = BindingContext.DeleteContactCommand,Source={x:Reference Contact}}"
+                                          CommandParameter="{Binding .}"
+                                          IsDestructive="True">
+                                </MenuItem>
+                            </ViewCell.ContextActions>
+                            <StackLayout Orientation="Horizontal">
+                                <Image Source="{Binding image}" HeightRequest="100" WidthRequest="70" Margin="0,0,0,10"/>
+                                <Label Text="{Binding firstName}" FontAttributes="Bold" FontSize="25" Margin="0,0,0,0"/>
+                                <Label Text="{Binding lastName}" FontAttributes="Bold" FontSize="25" Margin="0,0,0,0"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ImageButton Source="add" 
+                Grid.Row="1"
+                Padding="20"
+                HeightRequest="75"
+                HorizontalOptions="EndAndExpand" 
+                Command="{Binding AddContactPageCommand}"
+                BackgroundColor="Transparent"/>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

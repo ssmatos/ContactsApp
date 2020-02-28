@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace ContactsApp.Models
 {
 	public class Contact
 	{
-		public string Name { get; set; }
-		public string Number { get; set; }
-		public string Image { get; set; }
+		public string firstName { get; set; }
+		public string lastName { get; set; }
+		public string number { get; set; }
+		public string email { get; set; }
+		public string image { get; set; }
 	}
 }
